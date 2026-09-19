@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carteira</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Crect width=%2716%27 height=%2716%27 rx=%273%27 fill=%27%232a78d6%27/%3E%3Cpath d=%27M3.5 11.5 L6.5 7.5 L9 9.5 L12.5 4.5%27 stroke=%27white%27 stroke-width=%271.6%27 fill=%27none%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/estatico/estilo.css">
+</head>
+<body>
+<div class="envoltorio">
+
+  <header>
+    <div>
+      <h1>Minha carteira</h1>
+      <p id="subtitulo">Carregando...</p>
+    </div>
+    <div class="acoes">
+      <button id="btn-cotacoes">Atualizar cotações</button>
+      <button id="btn-proventos">Buscar proventos</button>
+      <button id="btn-pluggy" class="primario">Sincronizar Open Finance</button>
+      <button id="btn-tema" title="Alternar tema">◐</button>
+    </div>
+  </header>
+
+  <div id="avisos"></div>
+
+  <section class="tiles" id="tiles"></section>
+
+  <section class="cartao">
+    <h2>Proventos recebidos por mês</h2>
+    <p class="subtitulo">
+      Últimos 24 meses. Amortização aparece separada porque é devolução de
+      principal, não renda, e somar as duas infla o yield.
+    </p>
+    <div class="legenda" id="legenda-mensal"></div>
+    <svg class="grafico" id="grafico-mensal" role="img" aria-label="Proventos por mês"></svg>
+    <details class="tabela-alternativa">
+      <summary>Ver como tabela</summary>
+      <div class="rolagem"><table id="tabela-mensal"></table></div>
+    </details>
+  </section>
+
+  <div class="duas-colunas">
+    <section class="cartao">
+      <h2>Onde está o dinheiro</h2>
+      <p class="subtitulo">Participação de cada classe no valor atual.</p>
+      <svg class="grafico" id="grafico-alocacao" role="img" aria-label="Alocação por classe"></svg>
+    </section>
+
+    <section class="cartao">
+      <h2>Quem mais paga</h2>
+      <p class="subtitulo">Proventos acumulados nos últimos 12 meses.</p>
+      <svg class="grafico" id="grafico-pagadores" role="img" aria-label="Maiores pagadores"></svg>
+    </section>
+  </div>
+
+  <section class="cartao">
+    <h2>Próximos pagamentos</h2>
+    <p class="subtitulo">
+      Proventos anunciados e ainda não creditados, com o valor estimado pela sua
+      quantidade em carteira.
+    </p>
+    <div class="rolagem"><table id="tabela-calendario"></table></div>
+  </section>
+
+  <section class="cartao">
+    <h2>Posição</h2>
+    <p class="subtitulo" id="subtitulo-posicao"></p>
+    <div class="rolagem"><table id="tabela-posicoes"></table></div>
+  </section>
+
+  <section class="cartao">
+    <h2>Proventos por ativo</h2>
+    <p class="subtitulo">
+      Últimos 12 meses. O yield on cost compara o que o papel pagou com o que
+      você pagou por ele, então não muda quando a cotação oscila.
+    </p>
+    <div class="rolagem"><table id="tabela-pagadores"></table></div>
+  </section>
+
+</div>
+
+<div class="dica" id="dica" role="tooltip"></div>
+<script src="/estatico/app.js"></script>
+</body>
+</html>

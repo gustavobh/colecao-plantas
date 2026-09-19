@@ -45,7 +45,11 @@ class TipoMovimento(str, Enum):
     VENDA = "VENDA"
     APLICACAO = "APLICACAO"          # aporte em renda fixa / fundo
     RESGATE = "RESGATE"
-    TRANSFERENCIA = "TRANSFERENCIA"  # entrada ou saida de custodia
+    # Transferencia de custodia precisa de direcao: sem ela a quantidade
+    # nao fecha. TRANSFERENCIA fica so para origem que nao informa o sentido.
+    TRANSFERENCIA_ENTRADA = "TRANSFERENCIA_ENTRADA"
+    TRANSFERENCIA_SAIDA = "TRANSFERENCIA_SAIDA"
+    TRANSFERENCIA = "TRANSFERENCIA"
 
     # Proventos em dinheiro
     DIVIDENDO = "DIVIDENDO"
@@ -85,7 +89,8 @@ MOVIMENTOS_QUANTIDADE = frozenset(
         TipoMovimento.VENDA,
         TipoMovimento.APLICACAO,
         TipoMovimento.RESGATE,
-        TipoMovimento.TRANSFERENCIA,
+        TipoMovimento.TRANSFERENCIA_ENTRADA,
+        TipoMovimento.TRANSFERENCIA_SAIDA,
         TipoMovimento.BONIFICACAO,
         TipoMovimento.DESDOBRAMENTO,
         TipoMovimento.GRUPAMENTO,
@@ -101,7 +106,9 @@ SINAL_QUANTIDADE: dict[TipoMovimento, int] = {
     TipoMovimento.BONIFICACAO: 1,
     TipoMovimento.DESDOBRAMENTO: 1,
     TipoMovimento.SUBSCRICAO: 1,
+    TipoMovimento.TRANSFERENCIA_ENTRADA: 1,
     TipoMovimento.VENDA: -1,
+    TipoMovimento.TRANSFERENCIA_SAIDA: -1,
     TipoMovimento.RESGATE: -1,
     TipoMovimento.GRUPAMENTO: -1,
     TipoMovimento.FRACAO: -1,

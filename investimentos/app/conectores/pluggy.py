@@ -75,8 +75,8 @@ MAPA_SUBTIPO_ATIVO: dict[str, TipoAtivo] = {
 MAPA_TIPO_MOVIMENTO: dict[str, TipoMovimento] = {
     "BUY": TipoMovimento.COMPRA,
     "SELL": TipoMovimento.VENDA,
-    "TRANSFER_IN": TipoMovimento.TRANSFERENCIA,
-    "TRANSFER_OUT": TipoMovimento.TRANSFERENCIA,
+    "TRANSFER_IN": TipoMovimento.TRANSFERENCIA_ENTRADA,
+    "TRANSFER_OUT": TipoMovimento.TRANSFERENCIA_SAIDA,
     "TRANSFER": TipoMovimento.TRANSFERENCIA,
     "DIVIDEND": TipoMovimento.DIVIDENDO,
     "INTEREST_ON_EQUITY": TipoMovimento.JCP,

@@ -39,7 +39,8 @@ MAPA_MOVIMENTO: dict[str, TipoMovimento] = {
     "compra": TipoMovimento.COMPRA,
     "venda": TipoMovimento.VENDA,
     "transferencia - liquidacao": None,  # o sinal da coluna Entrada/Saida decide
-    "transferencia": TipoMovimento.TRANSFERENCIA,
+    "transferencia": None,  # a coluna Entrada/Saida decide a direcao
+    "transferencia de custodia": None,
     "bonificacao em ativos": TipoMovimento.BONIFICACAO,
     "desdobro": TipoMovimento.DESDOBRAMENTO,
     "desdobramento": TipoMovimento.DESDOBRAMENTO,
@@ -225,9 +226,17 @@ def importar(
             if tipo is None and chave:
                 resultado.avisos.append(f'Movimentacao nao mapeada: "{descricao}"')
         if tipo is None:
-            # Transferencia - Liquidacao e o nome que a B3 da para a liquidacao
-            # de uma ordem. O sentido diz se foi compra ou venda.
-            tipo = TipoMovimento.COMPRA if entrada else TipoMovimento.VENDA
+            # "Transferencia - Liquidacao" e como a B3 nomeia a liquidacao de
+            # uma ordem, entao vira compra ou venda. "Transferencia" sozinha e
+            # troca de custodia, que move quantidade sem ser negocio.
+            if chave.startswith("transferencia - liquidacao"):
+                tipo = TipoMovimento.COMPRA if entrada else TipoMovimento.VENDA
+            else:
+                tipo = (
+                    TipoMovimento.TRANSFERENCIA_ENTRADA
+                    if entrada
+                    else TipoMovimento.TRANSFERENCIA_SAIDA
+                )
 
         ticker, nome = separa_produto(linha[c_produto])
         if not ticker:
